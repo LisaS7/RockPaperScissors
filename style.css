@@ -1,4 +1,24 @@
 .flex-container {
     display: flex;
     justify-content: center;
+    padding: 20px;
   }
+
+.scoreboard {
+    padding: 20px;
+    margin: 20px;
+    width: 50%;
+    border: 5px dotted blue;
+
+
+}
+
+.player-name {
+    font-size: 20px;
+    text-align: center;
+}
+
+.score {
+    font-size: 60px;
+    text-align: center;
+}
