@@ -1,5 +1,4 @@
-function computerPlay() {
-
+function computerChoice() {
     const options = ["rock", "paper", "scissors"];
     return options[Math.floor(Math.random()*options.length)];
 }
@@ -24,15 +23,15 @@ function playRound(playerSelection, computerSelection) {
 }
 
 
-function playerInput() {
-    let playerChoice = prompt("Please enter your choice:").toLowerCase()
-    let checkChoice = (playerChoice==="rock" || playerChoice==="paper" || playerChoice==="scissors");
+function playerChoice() {
+    let playerInput = prompt("Please enter your choice:").toLowerCase()
+    let checkChoice = (playerInput==="rock" || playerInput==="paper" || playerInput==="scissors");
 
     if (checkChoice) {
-        return playerChoice;
+        return playerInput;
     } else {
         console.log('Invalid input!');
-        return playerInput();
+        return playerChoice();
     }
 }
 
@@ -58,8 +57,8 @@ function game() {
 
     for (let i=0; i < 5; i++) {
 
-        let computerSelection = computerPlay();
-        let playerSelection = playerInput();
+        let computerSelection = computerChoice();
+        let playerSelection = playerChoice();
 
         points = playRound(playerSelection, computerSelection);
         playerPoints += points[0];
