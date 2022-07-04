@@ -2,7 +2,7 @@ function computerChoice() {
     const options = ["rock", "paper", "scissors"];
     return options[Math.floor(Math.random()*options.length)];
 }
-//
+
 
 function playRound(playerSelection, computerSelection) {
 
@@ -49,6 +49,11 @@ function results(playerPoints, computerPoints) {
 }
 
 
+const buttons = document.querySelectorAll('div.choice-buttons > button');
+buttons.forEach((button) => {
+    button.addEventListener('click', playRound(button.value, 'rock'));
+});
+
 function game() {
 
     let points;
@@ -69,5 +74,5 @@ function game() {
        
 }
 
-game();
+//game();
 
