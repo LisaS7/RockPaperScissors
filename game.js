@@ -26,6 +26,10 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function scoreboard(points) {
+    
+}
+
 
 function results(playerPoints, computerPoints) {
     outputElement = document.querySelector('div.results > p');
