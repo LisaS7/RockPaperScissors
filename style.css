@@ -1,9 +1,17 @@
+:root {
+    --main-bg-color: #eef1fc;
+    --scoreboard-border: #601155;
+    --neon1: #03b7f8;
+    --neon2: #034760;
+  }
+  
+
 * {
     font-family: "Audiowide", sans-serif;
 }
 
 body {
-    background-color: #eef1fc;
+    background-color: var(--main-bg-color);
   }
 
 header {
@@ -15,17 +23,16 @@ h2 {
 }
 
 p {
-    font-size: 1vw;
+    font-size: 1.3vw;
 }
 
 .flex-container {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .choice-buttons > button {
-    display: flex;
     justify-content: center;
     max-width: 110px;
     margin: 0px 30px 0px 30px;
@@ -35,17 +42,26 @@ p {
     max-width:100%;
 }
 
+#final-result {
+    text-align: center;
+    font-size: 4vw;
+    margin: 10px;
+}
 
 .scoreboard-column {
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     flex: 1 1 0px;
+}
+
+#score-column1 {
+    align-items: flex-end;
 }
 
 .scoreboard {
     padding: 10px;
     width: 40%;
-    border: 5px dotted #601155;
+    border: 5px dotted var(--scoreboard-border);
 }
 
 .player-name {
@@ -60,5 +76,15 @@ p {
 
 .winner-history {
     font-weight: bold;
+  text-shadow:
+  0 0 7px ,
+  0 0 10px var(--neon1),
+  0 0 21px var(--neon1),
+  0 0 42px var(--neon1),
+  0 0 82px var(--neon2),
+  0 0 92px var(--neon2),
+  0 0 102px var(--neon2),
+  0 0 151px var(--neon2);
+
 }
 

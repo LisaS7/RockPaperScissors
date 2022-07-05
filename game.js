@@ -72,16 +72,17 @@ function displayRound(round) {
 
 function endGame(playerPoints, computerPoints) {
     choiceButtons.forEach(button => button.disabled = true);
+    document.getElementById('messageText').innerText = '';
+    document.getElementById('reset').innerText = 'Play again?';
 
-    const outputElement = document.querySelector('div.results > p');
-    outputElement.textContent = `You have ${playerPoints} points. The computer has ${computerPoints} points.`;
+    const output = document.getElementById('final-result');
 
     if (playerPoints>computerPoints) {
-        outputElement.textContent += "You win!";
+        output.textContent += "You win!";
     } else if (playerPoints<computerPoints) {
-        outputElement.textContent += "You lose!";
+        output.textContent += "You lose!";
     } else {
-        outputElement.textContent += "It's a draw!";
+        output.textContent += "It's a draw!";
     }
 }
 
