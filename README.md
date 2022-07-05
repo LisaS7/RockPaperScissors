@@ -8,5 +8,7 @@ JavaScript exercise from [The Odin Project](https://www.theodinproject.com/paths
 What I learned:
 * Adding event listeners
 * Manipulating element styles and content
-* Customising fonts using Google fonts
 * Improved my understanding of JavaScript functions
+* Customising fonts using Google fonts
+* Adding a glow effect to text and containers using CSS
+
