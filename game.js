@@ -1,5 +1,9 @@
-const buttons = document.querySelectorAll('div.choice-buttons > button');
-const resultsPara = document.querySelector('div.results > p');
+const choiceButtons = document.querySelectorAll('div.choice-buttons > button');
+const resultsText = document.querySelector('div.results > p');
+const scoreText = document.getElementsByClassName('score');
+
+const resetButton = document.getElementById('reset');
+resetButton.addEventListener('click', () => {location.reload()});
 
 
 function computerChoice() {
@@ -10,7 +14,9 @@ function computerChoice() {
 
 function playRound(playerSelection, computerSelection) {
 
-    let selectionCombo = `${playerSelection}${computerSelection}`
+    displayHistory(playerSelection, computerSelection);
+
+    let selectionCombo = `${playerSelection}${computerSelection}`;
 
     if ((selectionCombo==="rockpaper") ||
         (selectionCombo==="paperscissors") ||
@@ -26,18 +32,28 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function scoreboard(points) {
-    
+function scoreboard(playerPoints, computerPoints) {
+    scoreText[0].textContent = playerPoints;
+    scoreText[1].textContent = computerPoints;
+}
+
+function displayHistory(playerSelection, computerSelection) {
+    const playerDisplay = document.getElementById('player-history');
+    const computerDisplay = document.getElementById('computer-history');
+    playerDisplay.innerHTML += `${playerSelection}`;
+    computerDisplay.innerHTML += `${computerSelection}`;
 }
 
 function displayRound(round) {
     const outputRound = document.querySelector('header > p');
-    outputRound.textContent = `Round ${round}`
+    outputRound.textContent = `Round ${round}`;
 }
 
 
-function results(playerPoints, computerPoints) {
-    outputElement = document.querySelector('div.results > p');
+function endGame(playerPoints, computerPoints) {
+    choiceButtons.forEach(button => button.disabled = true);
+
+    const outputElement = document.querySelector('div.results > p');
     outputElement.textContent = `You have ${playerPoints} points. The computer has ${computerPoints} points.`;
 
     if (playerPoints>computerPoints) {
@@ -54,12 +70,14 @@ function results(playerPoints, computerPoints) {
 
 
 let playerPoints = 0;
+let playerHistory = Array();
 let computerPoints = 0;
+let computerHistory = Array();
 let round = 0;
 
 
 // Runs one round when a button is clicked
-buttons.forEach((button) => {
+choiceButtons.forEach((button) => {
     button.addEventListener('click', () => {
 
         points = playRound(button.value, computerChoice());
@@ -68,32 +86,11 @@ buttons.forEach((button) => {
         playerPoints += points[0];
         computerPoints += points[1];
 
+        scoreboard(playerPoints, computerPoints);
+
         if (playerPoints>=5 || computerPoints>=5) {
-            results(playerPoints, computerPoints, resultsPara);
+            endGame(playerPoints, computerPoints, resultsText);
         }
     });
 });
-
-
-function game() {
-
-    // let points;
-    // let playerPoints = 0;
-    // let computerPoints = 0;
-
-    // for (let i=0; i < 5; i++) {
-
-    //     let computerSelection = computerChoice();
-    //     let playerSelection = playerChoice();
-
-    //     points = playRound(playerSelection, computerSelection);
-    //     playerPoints += points[0];
-    //     computerPoints += points[1];
-    // };
-
-    // console.log(results(playerPoints,computerPoints));
-       
-}
-
-
 
