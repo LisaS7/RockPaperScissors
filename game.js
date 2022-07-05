@@ -1,7 +1,4 @@
 const choiceButtons = document.querySelectorAll('div.choice-buttons > button');
-const resultsText = document.querySelector('div.results > p');
-const scoreText = document.getElementsByClassName('score');
-
 const resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => {location.reload()});
 
@@ -19,18 +16,15 @@ function playRound(playerSelection, computerSelection) {
     if ((selectionCombo==="rockpaper") ||
         (selectionCombo==="paperscissors") ||
         (selectionCombo==="scissorsrock")) {
-        console.log(`You lose! ${computerSelection} beats ${playerSelection}.`);
         return 'computer';
     } else if (playerSelection===computerSelection) {
-        console.log(`It's a draw! You both chose ${playerSelection}.`);
         return 'draw';
     } else {
-        console.log(`You win! ${playerSelection} beats ${computerSelection}.`);
         return 'player';
     }
 }
 
-function getPoints(winner, playerPoints, computerPoints) {
+function addPoints(winner, playerPoints, computerPoints) {
     if (winner === 'computer') {
         return [playerPoints, computerPoints += 1];
     } else if (winner === 'player') {
@@ -40,9 +34,19 @@ function getPoints(winner, playerPoints, computerPoints) {
     }
 }
 
-function scoreboard(playerPoints, computerPoints) {
+function scoreboard(playerPoints, computerPoints, winner) {
+    const scoreText = document.getElementsByClassName('score');
     scoreText[0].textContent = playerPoints;
     scoreText[1].textContent = computerPoints;
+
+    switch(winner) {
+        case 'computer':
+            toggleGlowboard('scoreboard2');
+            break;
+        case 'player':
+            toggleGlowboard('scoreboard1');
+            break;
+    }
 }
 
 function toggleGlowboard(boardID, remove=false) {
@@ -61,17 +65,19 @@ function displayHistory(playerSelection, computerSelection, winner) {
     playerText.textContent += `${playerSelection}`;
     computerText.textContent += `${computerSelection}`;
 
-    if (winner === 'computer') {
-        computerText.classList.add('winner-history');
-        playerText.classList.add('lose-history');
-        toggleGlowboard('scoreboard2');
-    } else if (winner === 'player') {
-        playerText.classList.add('winner-history');
-        computerText.classList.add('lose-history');
-        toggleGlowboard('scoreboard1');
-    } else {
-        playerText.classList.add('lose-history');
-        computerText.classList.add('lose-history');
+    switch (winner) {
+        case 'computer':
+            computerText.classList.add('winner-history');
+            playerText.classList.add('lose-history');
+            break;
+        case 'player':
+            playerText.classList.add('winner-history');
+            computerText.classList.add('lose-history');
+            break;
+        case 'draw':
+            playerText.classList.add('lose-history');
+            computerText.classList.add('lose-history');
+            break;
     }
 
     const playerDisplay = document.getElementById('player-history');
@@ -93,9 +99,9 @@ function endGame(playerPoints, computerPoints) {
 
     const output = document.getElementById('final-result');
 
-    if (playerPoints>computerPoints) {
+    if (playerPoints > computerPoints) {
         output.textContent += "You win!";
-    } else if (playerPoints<computerPoints) {
+    } else if (playerPoints < computerPoints) {
         output.textContent += "You lose!";
     } else {
         output.textContent += "It's a draw!";
@@ -122,11 +128,11 @@ choiceButtons.forEach((button) => {
         let winner = playRound(playerSelection, computerSelection);
         displayHistory(playerSelection, computerSelection, winner);
 
-        [playerPoints, computerPoints] = getPoints(winner, playerPoints, computerPoints);
-        scoreboard(playerPoints, computerPoints);
+        [playerPoints, computerPoints] = addPoints(winner, playerPoints, computerPoints);
+        scoreboard(playerPoints, computerPoints, winner);
 
         if (playerPoints>=5 || computerPoints>=5) {
-            endGame(playerPoints, computerPoints, resultsText);
+            endGame(playerPoints, computerPoints);
         }
     });
 });
