@@ -30,6 +30,11 @@ function scoreboard(points) {
     
 }
 
+function displayRound(round) {
+    const outputRound = document.querySelector('header > p');
+    outputRound.textContent = `Round ${round}`
+}
+
 
 function results(playerPoints, computerPoints) {
     outputElement = document.querySelector('div.results > p');
@@ -50,6 +55,7 @@ function results(playerPoints, computerPoints) {
 
 let playerPoints = 0;
 let computerPoints = 0;
+let round = 0;
 
 
 // Runs one round when a button is clicked
@@ -57,6 +63,8 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
 
         points = playRound(button.value, computerChoice());
+        displayRound(round += 1);
+
         playerPoints += points[0];
         computerPoints += points[1];
 
