@@ -45,9 +45,16 @@ function scoreboard(playerPoints, computerPoints) {
     scoreText[1].textContent = computerPoints;
 }
 
+function toggleGlowboard(boardID, remove=false) {
+    if (remove) {
+        document.getElementById(boardID).classList.remove('scoreboard-neon');
+    } else {
+        document.getElementById(boardID).classList.add('scoreboard-neon');
+    }
+}
+
 function displayHistory(playerSelection, computerSelection, winner) {
-    const playerDisplay = document.getElementById('player-history');
-    const computerDisplay = document.getElementById('computer-history');
+    
     let playerText = document.createElement("p");
     let computerText = document.createElement("p");
 
@@ -56,10 +63,19 @@ function displayHistory(playerSelection, computerSelection, winner) {
 
     if (winner === 'computer') {
         computerText.classList.add('winner-history');
+        playerText.classList.add('lose-history');
+        toggleGlowboard('scoreboard2');
     } else if (winner === 'player') {
         playerText.classList.add('winner-history');
+        computerText.classList.add('lose-history');
+        toggleGlowboard('scoreboard1');
+    } else {
+        playerText.classList.add('lose-history');
+        computerText.classList.add('lose-history');
     }
 
+    const playerDisplay = document.getElementById('player-history');
+    const computerDisplay = document.getElementById('computer-history');
     playerDisplay.insertBefore(playerText, playerDisplay.firstChild)
     computerDisplay.insertBefore(computerText, computerDisplay.firstChild)
 }
@@ -95,6 +111,8 @@ let round = 0;
 // Runs one round when a button is clicked
 choiceButtons.forEach((button) => {
     button.addEventListener('click', () => {
+        toggleGlowboard('scoreboard1', remove=true);
+        toggleGlowboard('scoreboard2', remove=true);
 
         let playerSelection = button.value;
         let computerSelection = computerChoice();
