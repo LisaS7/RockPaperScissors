@@ -14,21 +14,29 @@ function computerChoice() {
 
 function playRound(playerSelection, computerSelection) {
 
-    displayHistory(playerSelection, computerSelection);
-
     let selectionCombo = `${playerSelection}${computerSelection}`;
 
     if ((selectionCombo==="rockpaper") ||
         (selectionCombo==="paperscissors") ||
         (selectionCombo==="scissorsrock")) {
         console.log(`You lose! ${computerSelection} beats ${playerSelection}.`);
-        return [0,1];
+        return 'computer';
     } else if (playerSelection===computerSelection) {
         console.log(`It's a draw! You both chose ${playerSelection}.`);
-        return [0,0];
+        return 'draw';
     } else {
         console.log(`You win! ${playerSelection} beats ${computerSelection}.`);
-        return [1,0];
+        return 'player';
+    }
+}
+
+function getPoints(winner, playerPoints, computerPoints) {
+    if (winner === 'computer') {
+        return [playerPoints, computerPoints += 1];
+    } else if (winner === 'player') {
+        return [playerPoints += 1, computerPoints];
+    } else {
+        return [playerPoints, computerPoints];
     }
 }
 
@@ -37,11 +45,23 @@ function scoreboard(playerPoints, computerPoints) {
     scoreText[1].textContent = computerPoints;
 }
 
-function displayHistory(playerSelection, computerSelection) {
+function displayHistory(playerSelection, computerSelection, winner) {
     const playerDisplay = document.getElementById('player-history');
     const computerDisplay = document.getElementById('computer-history');
-    playerDisplay.innerHTML += `${playerSelection}`;
-    computerDisplay.innerHTML += `${computerSelection}`;
+    let playerText = document.createElement("p");
+    let computerText = document.createElement("p");
+
+    playerText.textContent += `${playerSelection}`;
+    computerText.textContent += `${computerSelection}`;
+
+    if (winner === 'computer') {
+        computerText.classList.add('winner-history');
+    } else if (winner === 'player') {
+        playerText.classList.add('winner-history');
+    }
+
+    playerDisplay.insertBefore(playerText, playerDisplay.firstChild)
+    computerDisplay.insertBefore(computerText, computerDisplay.firstChild)
 }
 
 function displayRound(round) {
@@ -63,16 +83,11 @@ function endGame(playerPoints, computerPoints) {
     } else {
         outputElement.textContent += "It's a draw!";
     }
-
-    playerPoints = 0;
-    computerPoints = 0;
 }
 
 
 let playerPoints = 0;
-let playerHistory = Array();
 let computerPoints = 0;
-let computerHistory = Array();
 let round = 0;
 
 
@@ -80,12 +95,15 @@ let round = 0;
 choiceButtons.forEach((button) => {
     button.addEventListener('click', () => {
 
-        points = playRound(button.value, computerChoice());
+        let playerSelection = button.value;
+        let computerSelection = computerChoice();
+
         displayRound(round += 1);
 
-        playerPoints += points[0];
-        computerPoints += points[1];
+        let winner = playRound(playerSelection, computerSelection);
+        displayHistory(playerSelection, computerSelection, winner);
 
+        [playerPoints, computerPoints] = getPoints(winner, playerPoints, computerPoints);
         scoreboard(playerPoints, computerPoints);
 
         if (playerPoints>=5 || computerPoints>=5) {
