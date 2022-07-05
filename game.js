@@ -129,6 +129,7 @@ choiceButtons.forEach((button) => {
         displayHistory(playerSelection, computerSelection, winner);
 
         [playerPoints, computerPoints] = addPoints(winner, playerPoints, computerPoints);
+        
         scoreboard(playerPoints, computerPoints, winner);
 
         if (playerPoints>=5 || computerPoints>=5) {
