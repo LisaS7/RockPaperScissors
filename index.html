@@ -12,9 +12,7 @@
     <header>
         <h2>Let's play Rock, Paper, Scissors!</h2>
         <p>Choose your weapon to start the game:</p>
-    </header>
-
-    
+    </header>    
 
     <div class="flex-container choice-buttons">
         <button value="rock"><img src="images/rock2.png"></button>
@@ -28,18 +26,24 @@
                 <p class="player-name">PLAYER</p>
                 <p id="player-score" class="score">0</p>
             </div>
+            <p id="player-history"></p>
         </div>
         <div class="flex-container scoreboard-column">
             <div id="scoreboard2" class="scoreboard">
                 <p class="player-name">COMPUTER</p>
                 <p id="computer-score" class="score">0</p>
             </div>
+            <p id="computer-history"></p>
         </div>
     </div>
     
 
     <div class="flex-container results">
         <p></p>
+    </div>
+
+    <div class="flex-container reset-button">
+        <button id="reset">New Game</button>
     </div>
 
     <script src="game.js"></script>
