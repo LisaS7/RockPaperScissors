@@ -1,8 +1,9 @@
 :root {
     --main-bg-color: #eef1fc;
     --scoreboard-border: #601155;
-    --neon1: #03b7f8;
-    --neon2: #034760;
+    --lose-text: rgb(124, 124, 126);
+    --neon1: #0568ca;
+    --neon2: #02f0a1;
   }
   
 
@@ -33,7 +34,6 @@ p {
 }
 
 .choice-buttons > button {
-    justify-content: center;
     max-width: 110px;
     margin: 0px 30px 0px 30px;
 }
@@ -61,7 +61,19 @@ p {
 .scoreboard {
     padding: 10px;
     width: 40%;
-    border: 5px dotted var(--scoreboard-border);
+    border: 3px dotted var(--scoreboard-border);
+}
+
+.scoreboard-neon {
+    box-shadow: 
+        0 0 1px var(--neon1),
+        0 0 2px var(--neon1),
+        0 0 6px var(--neon2),
+        0 0 12px var(--neon2),
+        inset 0 0 1px var(--neon1),
+        inset 0 0 2px var(--neon1),
+        inset 0 0 6px var(--neon2),
+        inset 0 0 12px var(--neon2);
 }
 
 .player-name {
@@ -76,15 +88,19 @@ p {
 
 .winner-history {
     font-weight: bold;
-  text-shadow:
-  0 0 7px ,
-  0 0 10px var(--neon1),
-  0 0 21px var(--neon1),
-  0 0 42px var(--neon1),
-  0 0 82px var(--neon2),
-  0 0 92px var(--neon2),
-  0 0 102px var(--neon2),
-  0 0 151px var(--neon2);
+    color: #fff;
+    text-shadow:
+        0 0 1px var(--neon1),
+        0 0 2px var(--neon1),
+        0 0 6px var(--neon1),
+        0 0 12px var(--neon2),
+        0 0 24px var(--neon2),
+        0 0 92px var(--neon2),
+        0 0 102px var(--neon2),
+        0 0 151px var(--neon2);
+}
 
+.lose-history {
+    color: var(--lose-text);
 }
 
